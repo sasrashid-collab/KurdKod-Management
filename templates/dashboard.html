@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+        <h2>{{ t('dashboard') }}</h2>
+        <div>
+            <a href="{{ url_for('logout') }}" style="color:#ef4444;text-decoration:none;margin-{{ 'left' if current_lang=='en' else 'right' }}:1rem">{{ t('logout') }}</a>
+            <div class="lang-switch" style="display:inline-flex;margin:0">
+                <a href="{{ url_for('change_lang', lang='ku') }}" class="lang-btn {{ 'active' if current_lang=='ku' }}">کوردی</a>
+                <a href="{{ url_for('change_lang', lang='ar') }}" class="lang-btn {{ 'active' if current_lang=='ar' }}">العربية</a>
+                <a href="{{ url_for('change_lang', lang='en') }}" class="lang-btn {{ 'active' if current_lang=='en' }}">English</a>
+            </div>
+        </div>
+    </div>
+
+    <p><strong>{{ t('welcome') }}, {{ current_user.username }}</strong> | {{ t('users') }}: {{ users_count }}</p>
+    {% if temp_license %}
+      <div style="background:#fef3c7;padding:.8rem;border-radius:6px;margin:1rem 0;border-right:4px solid #f59e0b">
+        🔑 {{ t('license_key') }}: <code>{{ temp_license }}</code>
+      </div>
+    {% endif %}
+
+    <h3 style="margin-top:1.5rem">{{ t('activity') }}</h3>
+    <table>
+        <thead><tr><th>{{ t('action') }}</th><th>{{ t('time') }}</th><th>{{ t('ip') }}</th></tr></thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.action }}</td>
+                <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ log.ip_address or '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
