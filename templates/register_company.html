@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width:450px;margin:3rem auto">
+    <h2 style="margin-bottom:1rem;text-align:center">{{ t('register') }}</h2>
+    <form method="POST">
+        <label>{{ t('company_name') }}</label>
+        <input type="text" name="company_name" required>
+        <label>{{ t('username') }}</label>
+        <input type="text" name="admin_username" required>
+        <label>{{ t('password') }}</label>
+        <input type="password" name="admin_password" required>
+        <button type="submit">{{ t('register') }}</button>
+    </form>
+    <p style="margin-top:1rem;text-align:center">
+        <a href="{{ url_for('login') }}">{{ t('login') }}</a>
+    </p>
+</div>
+{% endblock %}
