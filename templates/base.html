@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}" dir="{{ 'ltr' if current_lang == 'en' else 'rtl' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t('app_title') }}</title>
+    <style>
+        :root{--primary:#0056b3;--bg:#f4f6f8;--card:#fff;--text:#2d3748;--border:#e2e8f0}
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,sans-serif}
+        body{background:var(--bg);color:var(--text);direction:rtl;text-align:right}
+        .container{max-width:1000px;margin:2rem auto;padding:0 1rem}
+        .card{background:var(--card);padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+        input,select,button{width:100%;padding:.8rem;margin:.5rem 0;border:1px solid var(--border);border-radius:6px}
+        button{background:var(--primary);color:#fff;border:none;cursor:pointer;font-weight:600}
+        button:hover{opacity:.9}
+        .alert{padding:.8rem;margin:1rem 0;border-radius:6px}
+        .alert.error{background:#fee2e2;color:#b91c1c;border-right:4px solid #ef4444}
+        .alert.success{background:#dcfce7;color:#15803d;border-right:4px solid #22c55e}
+        .lang-switch{display:flex;gap:.5rem;margin-bottom:1rem}
+        .lang-btn{padding:.5rem 1rem;border:1px solid var(--primary);background:#fff;color:var(--primary);cursor:pointer;border-radius:4px}
+        .lang-btn.active{background:var(--primary);color:#fff}
+        table{width:100%;border-collapse:collapse;margin-top:1rem}
+        th,td{padding:.7rem;border-bottom:1px solid var(--border);text-align:right}
+        th{background:#f8fafc}
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">{{ t(message) }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
